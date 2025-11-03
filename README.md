@@ -48,39 +48,35 @@ Copy code
 git clone <your-repo-url>
 cd spatial_api
 2️⃣ Create a virtual environment
-bash
-Copy code
 python -m venv venv
 venv\Scripts\activate   # for Windows
 # OR
 source venv/bin/activate  # for Linux/Mac
 3️⃣ Install dependencies
 bash
-Copy code
 pip install -r requirements.txt
 🗄️ Database Setup (PostgreSQL + PostGIS)
 1️⃣ Start PostgreSQL service
 Make sure PostgreSQL is running:
 
 bash
-Copy code
 net start postgresql-x64-18
 2️⃣ Open psql and create DB
 bash
-Copy code
+
 psql -U postgres
 CREATE DATABASE spatialdb;
 \c spatialdb
 CREATE EXTENSION postgis;
 3️⃣ Add connection string to .env
 bash
-Copy code
+
 DATABASE_URL=postgresql://postgres:<your-password>@localhost/spatialdb
 Replace <your-password> with your PostgreSQL password.
 
 ▶️ Running the Application
 bash
-Copy code
+
 uvicorn app.main:app --reload
 Open in browser:
 👉 http://127.0.0.1:8000/docs
@@ -90,7 +86,7 @@ Open in browser:
 POST /polygons/
 
 json
-Copy code
+
 {
   "name": "Test Polygon",
   "coordinates": [
@@ -105,7 +101,7 @@ Copy code
 POST /points/
 
 json
-Copy code
+
 {
   "name": "Point1",
   "latitude": 12.975,
@@ -117,12 +113,12 @@ GET /point-in-polygon/{point_id}/{polygon_id}
 Example:
 
 pgsql
-Copy code
+
 GET /point-in-polygon/1/1
 Response:
 
 json
-Copy code
+
 {
   "inside": true
 }
